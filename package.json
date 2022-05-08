@@ -1,0 +1,29 @@
+{
+  "name": "ch-10-team-profile-generator",
+  "version": "1.0.0",
+  "description": "Object-Oriented Programming Challenge: Team Profile Generator",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harrison-daniel/CH-10-Team-Profile-Generator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/harrison-daniel/CH-10-Team-Profile-Generator/issues"
+  },
+  "homepage": "https://github.com/harrison-daniel/CH-10-Team-Profile-Generator#readme",
+  "devDependencies": {
+    "jest": "^28.1.0"
+  },
+  "dependencies": {
+    "inquirer": "^8.2.4"
+  }
+}
