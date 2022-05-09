@@ -1,6 +1,6 @@
 const Employee = require('../lib/Employee.js');
 
-// employee name
+// employee values
 test('test to get employee values', () => {
   const employee = new Employee('John');
 
