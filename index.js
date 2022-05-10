@@ -1,15 +1,21 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
-// const generatePage = require('./src/generatePage.js);
 const Engineer = require('./lib/Engineer');
 const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
-const { writeFile, copyFile } = require('./utils/generatePage');
+const {buildTeam} = require('./src/pageTemplate');
+const { writeFile, copyFile } = require('./utils/generatePage.js');
 
 const team = [];
 
 
 const promptManager = () => {
+
+  console.log(`
+  ============================
+  Add a Manager to your team
+  ============================
+  `);
 
   return inquirer
     .prompt([
@@ -69,27 +75,24 @@ const promptManager = () => {
         type: 'checkbox',
         name: 'addTeammate',
         message: 'Would you like to add another teammate?',
-        choices: ['Manager', 'Engineer', 'Intern', 'No'],
+        choices: ['Engineer', 'Intern', 'No'],
       },
-      
     ])
-
     .then(answers => {
       console.log(answers);
       const managerData = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerNum)
       console.log(managerData)
       team.push(managerData);
       // console.log(answers.addTeammate[0] === 'Manager')
-      if (answers.addTeammate[0] === 'Manager') {
-        return promptManager(team);
-      } else if (answers.addTeammate[0] === 'Engineer') {
+      // if (answers.addTeammate[0] === 'Manager') {
+      //   return promptManager(team);
+      if (answers.addTeammate[0] === 'Engineer') {
         return promptEngineer(team);
       } else if (answers.addTeammate[0] === 'Intern') {
         return promptIntern(team);
-      } else if (answers.addTeammate[0] === 'None') {
-        return team;
+      } else if (answers.addTeammate[0] === 'No') {
+        return buildTeam();
       }
-      
     }) 
 };
 
@@ -159,25 +162,20 @@ Add an Engineer to your team
         type: 'checkbox',
         name: 'addTeammate',
         message: 'Would you like to add another teammate?',
-        choices: ['Manager', 'Engineer', 'Intern', 'No'],
+        choices: ['Engineer', 'Intern', 'No'],
       },
-      
     ])
-
     .then(answers => {
       console.log(answers);
       const engineerData = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub)
       team.push(engineerData);
-      if (team.addTeammate === 'Manager') {
-        return promptManager(team);
-      } else if (team.addTeammate === 'Engineer') {
+     if (answers.addTeammate[0] === 'Engineer') {
         return promptEngineer(team);
-      } else if (team.addTeammate === 'Intern') {
+      } else if (answers.addTeammate[0] === 'Intern') {
         return promptIntern(team);
-      } else if (team.addTeammate === 'None') {
-        return team;
+      } else if (answers.addTeammate[0] === 'No') {
+        return buildTeam();
       }
-      
     })
 };
 
@@ -246,61 +244,43 @@ Add an Intern to your team
       type: 'checkbox',
       name: 'addTeammate',
       message: 'Would you like to add another teammate?',
-      choices: ['Manager', 'Engineer', 'Intern', 'No'],
+      choices: ['Engineer', 'Intern', 'No'],
     },
-    
   ])
-
   .then(answers => {
     console.log(answers);
     const internData = new Intern(answers.internName, answers.internId, answers.internEmail, answers.internSchool)
-    team.push(answers);
-    if (team.addTeammate === 'Manager') {
-      return promptManager(team);
-    } else if (team.addTeammate === 'Engineer') {
+    team.push(internData);
+   if (answers.addTeammate[0] === 'Engineer') {
       return promptEngineer(team);
-    } else if (team.addTeammate === 'Intern') {
+    } else if (answers.addTeammate[0] === 'Intern') {
       return promptIntern(team);
-    } else if (team.addTeammate === 'None') {
-      return team;
+    } else if (answers.addTeammate[0] === 'No') {
+      return buildTeam();
     }
-    
   })
 };
 
 
 promptManager()
-  .then(answers => {
-    console.log(answers, 'hello')
-  }
-    )
-  // .then(answers => {
-  //    return generatePage(answers);
-  // })
-
-
-
-// function writeToFile(fileName, data) {}
-// const writeToFile = data => {
-//   fs.writeFile('./dist/index.html', data, err => {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       console.log("Your HTML page has been created")
-//     }
-//   })
-// };
-
-
-// Function call to initialize app
-// promptUser()
-// function to write README file
-  // .then(answers => {
-  //   return generateMarkdown(answers);
-  // })
-  // .then(answers => {
-  //   return writeToFile(answers);
-  // })
-  // .catch(err => {
-  //   console.log(err);
-  // });
+    .then(data => {
+    console.log(data)
+    })
+    // .then(promptData => {
+    //   return generatePage(promptData);
+    // })
+    // .then(siteHTML => {
+    //   return writeFile(siteHTML);
+    // })
+    // .then(copyFileResponse => {
+    //   console.log(copyFileResponse);
+    //   return copyFile();
+    // }) 
+    // .then(response => {
+    //   console.log(response);
+    // })
+    // .catch(err => {
+    //   console.log(err);
+    // })
+  
+  

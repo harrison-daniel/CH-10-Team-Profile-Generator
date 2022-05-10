@@ -11,7 +11,7 @@ const writeFile = fileContent => {
 
       resolve({
         ok: true,
-        message: 'File created!'
+        message: 'Team Profile created!'
       });
     });
   });
