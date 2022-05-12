@@ -3,8 +3,8 @@ const inquirer = require('inquirer');
 const Engineer = require('./lib/Engineer');
 const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
-const {buildTeam} = require('./src/pageTemplate');
-const { writeFile, copyFile } = require('./utils/generatePage.js');
+const buildTeam = require('./src/pageTemplate');
+// const { writeFile, copyFile } = require('./utils/generatePage.js');
 
 const team = [];
 
@@ -79,21 +79,20 @@ const promptManager = () => {
       },
     ])
     .then(answers => {
-      console.log(answers);
-      const managerData = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerNum)
-      console.log(managerData)
+      const managerData = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerNum);
+      // console.log(managerData);
       team.push(managerData);
-      // console.log(answers.addTeammate[0] === 'Manager')
-      // if (answers.addTeammate[0] === 'Manager') {
-      //   return promptManager(team);
       if (answers.addTeammate[0] === 'Engineer') {
-        return promptEngineer(team);
+        return promptEngineer(managerData);
       } else if (answers.addTeammate[0] === 'Intern') {
-        return promptIntern(team);
+        return promptIntern(managerData);
       } else if (answers.addTeammate[0] === 'No') {
-        return buildTeam();
+        return buildTeam(team);
+      } else {
+        return team;
       }
     }) 
+
 };
 
 // enter new teammate
@@ -166,15 +165,16 @@ Add an Engineer to your team
       },
     ])
     .then(answers => {
-      console.log(answers);
-      const engineerData = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub)
+      const engineerData = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub);
       team.push(engineerData);
      if (answers.addTeammate[0] === 'Engineer') {
-        return promptEngineer(team);
+        return promptEngineer(engineerData);
       } else if (answers.addTeammate[0] === 'Intern') {
-        return promptIntern(team);
+        return promptIntern(engineerData);
       } else if (answers.addTeammate[0] === 'No') {
-        return buildTeam();
+        return buildTeam(team);
+      } else {
+        return team;
       }
     })
 };
@@ -248,39 +248,45 @@ Add an Intern to your team
     },
   ])
   .then(answers => {
-    console.log(answers);
-    const internData = new Intern(answers.internName, answers.internId, answers.internEmail, answers.internSchool)
+    const internData = new Intern(answers.internName, answers.internId, answers.internEmail, answers.internSchool);
     team.push(internData);
-   if (answers.addTeammate[0] === 'Engineer') {
-      return promptEngineer(team);
-    } else if (answers.addTeammate[0] === 'Intern') {
-      return promptIntern(team);
-    } else if (answers.addTeammate[0] === 'No') {
-      return buildTeam();
+   if (answers.addTeammate === 'Engineer') {
+      return promptEngineer(internData);
+    } else if (answers.addTeammate === 'Intern') {
+      return promptIntern(internData);
+    } else if (answers.addTeammate === 'No') {
+      return buildTeam(team);
+    } else {
+      return team;
     }
   })
 };
 
 
+// function writeToFile(fileName, data) {}
+const writeToFile = data => {
+  fs.writeFile('./dist/index.html', data, err => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Your html has been created")
+    }
+  })
+};
+
 promptManager()
-    .then(data => {
-    console.log(data)
-    })
-    // .then(promptData => {
-    //   return generatePage(promptData);
-    // })
-    // .then(siteHTML => {
-    //   return writeFile(siteHTML);
-    // })
-    // .then(copyFileResponse => {
-    //   console.log(copyFileResponse);
-    //   return copyFile();
-    // }) 
-    // .then(response => {
-    //   console.log(response);
-    // })
-    // .catch(err => {
-    //   console.log(err);
-    // })
+  .then(data => {
+    return buildTeam(data);
+  })
+  .then(data => {
+    return writeToFile(data);
+  })
+  .catch(err => {
+    console.log(err);
+  })
+    
+      // writeFile();
+      // copyFile();
+
   
   
