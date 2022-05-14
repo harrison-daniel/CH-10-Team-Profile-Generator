@@ -3,8 +3,9 @@ const inquirer = require('inquirer');
 const Engineer = require('./lib/Engineer');
 const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
-const buildTeam = require('./src/pageTemplate');
+// const htmlTemplate = require('./src/htmlTemplate');
 // const { writeFile, copyFile } = require('./utils/generatePage.js');
+const generateTeam = require('./utils/generateTeam.js');
 
 const team = [];
 
@@ -72,7 +73,7 @@ const promptManager = () => {
         }
       },
       {
-        type: 'checkbox',
+        type: 'list',
         name: 'addTeammate',
         message: 'Would you like to add another teammate?',
         choices: ['Engineer', 'Intern', 'No'],
@@ -82,16 +83,19 @@ const promptManager = () => {
       const managerData = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerNum);
       // console.log(managerData);
       team.push(managerData);
-      if (answers.addTeammate[0] === 'Engineer') {
+      console.log(team);
+      if (answers.addTeammate === 'Engineer') {
         return promptEngineer(managerData);
-      } else if (answers.addTeammate[0] === 'Intern') {
+      } else if (answers.addTeammate === 'Intern') {
         return promptIntern(managerData);
-      } else if (answers.addTeammate[0] === 'No') {
-        return buildTeam(team);
-      } else {
-        return team;
+      } else if (answers.addTeammate === 'No') {
+        return generateTeam(team);
       }
+   
     }) 
+
+
+
 
 };
 
@@ -158,7 +162,7 @@ Add an Engineer to your team
         }
       },
       {
-        type: 'checkbox',
+        type: 'list',
         name: 'addTeammate',
         message: 'Would you like to add another teammate?',
         choices: ['Engineer', 'Intern', 'No'],
@@ -167,19 +171,19 @@ Add an Engineer to your team
     .then(answers => {
       const engineerData = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub);
       team.push(engineerData);
-     if (answers.addTeammate[0] === 'Engineer') {
+     if (answers.addTeammate === 'Engineer') {
         return promptEngineer(engineerData);
-      } else if (answers.addTeammate[0] === 'Intern') {
+      } else if (answers.addTeammate === 'Intern') {
         return promptIntern(engineerData);
-      } else if (answers.addTeammate[0] === 'No') {
-        return buildTeam(team);
+      } else if (answers.addTeammate === 'No') {
+        return generateTeam(team);
       } else {
-        return team;
+        return;
       }
     })
 };
 
-const promptIntern = () => {
+ const promptIntern = () => {
   console.log(`
 ==========================
 Add an Intern to your team
@@ -241,7 +245,7 @@ Add an Intern to your team
       }
     },
     {
-      type: 'checkbox',
+      type: 'list',
       name: 'addTeammate',
       message: 'Would you like to add another teammate?',
       choices: ['Engineer', 'Intern', 'No'],
@@ -255,38 +259,10 @@ Add an Intern to your team
     } else if (answers.addTeammate === 'Intern') {
       return promptIntern(internData);
     } else if (answers.addTeammate === 'No') {
-      return buildTeam(team);
-    } else {
-      return team;
-    }
+      return generateTeam(team);
+    };
   })
 };
 
-
-// function writeToFile(fileName, data) {}
-const writeToFile = data => {
-  fs.writeFile('./dist/index.html', data, err => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log("Your html has been created")
-    }
-  })
-};
-
+// call promptManager function to start prompt
 promptManager()
-  .then(data => {
-    return buildTeam(data);
-  })
-  .then(data => {
-    return writeToFile(data);
-  })
-  .catch(err => {
-    console.log(err);
-  })
-    
-      // writeFile();
-      // copyFile();
-
-  
-  

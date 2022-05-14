@@ -1,10 +1,17 @@
 const fs = require('fs');
 
+
    
-const buildTeam = answers => {
+const htmlTemplate = (answers) =>{
 
    console.log('template console log?');
    console.log(answers);
+   console.log(answers.name);
+   console.log(answers[0]);
+   console.log(answers[1]);
+   console.log(answers[2].name);
+
+
     return`
     <!DOCTYPE html>
     <html lang="en">
@@ -33,7 +40,7 @@ const buildTeam = answers => {
           <div class="px-6 py-4">
             <div class="font-bold text-xl mb-2"></div>
             <p class="text-gray-700 text-base">
-              ${answers[0]}
+            $ {answers.name}
             </p>
           </div>
           <div class="px-6 pt-4 pb-2">
@@ -53,4 +60,6 @@ const buildTeam = answers => {
   `
  }
 
- module.exports = buildTeam;
+
+
+ module.exports = htmlTemplate;
