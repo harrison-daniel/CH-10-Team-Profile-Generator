@@ -83,7 +83,6 @@ const promptManager = () => {
       const managerData = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerNum);
       // console.log(managerData);
       team.push(managerData);
-      console.log(team);
       if (answers.addTeammate === 'Engineer') {
         return promptEngineer(managerData);
       } else if (answers.addTeammate === 'Intern') {
@@ -252,7 +251,7 @@ Add an Intern to your team
     },
   ])
   .then(answers => {
-    const internData = new Intern(answers.internName, answers.internId, answers.internEmail, answers.internSchool);
+    const internData = new Intern (answers.internName, answers.internId, answers.internEmail, answers.internSchool);
     team.push(internData);
    if (answers.addTeammate === 'Engineer') {
       return promptEngineer(internData);

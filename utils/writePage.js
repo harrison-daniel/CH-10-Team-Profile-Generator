@@ -1,5 +1,5 @@
 const fs = require('fs');
-const htmlTemplate = require('../src/htmlTemplate')
+const htmlTemplate = require('./htmlTemplate')
 
 // writing files
 const writeFile = fileContent => {
@@ -21,7 +21,7 @@ const writeFile = fileContent => {
 // copying file
 const copyFile = () => {
   return new Promise((resolve, reject) => {
-    fs.copyFile('./src/style.css', './dist/style.css', err => {
+    fs.copyFile('./utils/style.css', './dist/style.css', err => {
       if (err) {
         reject(err);
         return;

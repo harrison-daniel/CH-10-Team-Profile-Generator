@@ -1,6 +1,6 @@
 const fs = require('fs');
-const { writeFile, copyFile } = require('./generatePage.js');
-const htmlTemplate = require('../src/htmlTemplate');
+const { writeFile, copyFile } = require('./writePage.js');
+const htmlTemplate = require('./htmlTemplate');
 
 
 generateTeam = (team) => {
