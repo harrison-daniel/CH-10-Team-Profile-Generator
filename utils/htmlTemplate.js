@@ -1,35 +1,9 @@
 const fs = require('fs');
-
-
-// const userMembers = members => {
- 
-
-// }
-
-    // console.log(page);
  
 const htmlTemplate = (team) =>{
 
-   console.log('template console log?');
-  //  console.log(answers.name);
-  //  console.log(answers[0]);
-  //  console.log(answers[1]);
-  //  console.log(answers[2].name); undefined
-  // const page = [];
-
-
-  // page.push(answers
-  //   .filter(employee => employee.getRole() === "Manager")
-  //   .map(manager => generateManager(manager))
-  //   );
-  // page.push(answers
-  //   .filter(employee => employee.getRole() === "Engineer")
-  //   .map(engineer => generateManager(engineer))
-  //   );
-  // page.push(answers
-  //   .filter(employee => employee.getRole() === "Intern")
-  //   .map(intern => generateManager(intern))
-  //   );
+   console.log('Your Team HTML file has been created!');
+  
   
 
     return`
@@ -45,7 +19,7 @@ const htmlTemplate = (team) =>{
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
       <script src="https://cdn.tailwindcss.com"></script>
       <title>Team Profile Generator</title>
-    /head>
+    </head>
 
     <body>
 
@@ -65,9 +39,9 @@ const htmlTemplate = (team) =>{
             </p>
           </div>
           <div class="px-6 pt-4 pb-2">
-            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">${answers.getId()}</span>
-            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"> <a href="mailto:${answers.getEmail()}"/></span>
-            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">${answers.getOfficeNum()}</span>
+            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Id: ${answers.getId()}</span>
+            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"><a href="mailto:${answers.getEmail()}">Email: ${answers.getEmail()}</a></span>
+            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Office Number: ${answers.getOfficeNum()}</span>
           </div>
         </div>
           `
@@ -81,9 +55,9 @@ const htmlTemplate = (team) =>{
               </p>
             </div>
             <div class="px-6 pt-4 pb-2">
-              <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">${answers.getId()}</span>
-              <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"><a href="mailto:${answers.getEmail()}" /></span>
-              <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">${answers.getEngineerGithub()}</span>
+              <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Id: ${answers.getId()}</span>
+              <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"><a href="mailto:${answers.getEmail()}">Email: ${answers.getEmail()}</a></span>
+              <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"><a href= "https://github.com/${answers.getEngineerGithub()}">GitHub: ${answers.getEngineerGithub()}</a></span>
             </div>
           </div>
             `
@@ -97,9 +71,9 @@ const htmlTemplate = (team) =>{
               </p>
             </div>
             <div class="px-6 pt-4 pb-2">
-              <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">${answers.getId()}</span>
-              <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"><a href="mailto:${answers.getEmail()}" /></span>
-              <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">${answers.getInternSchool()}</span>
+              <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Id: ${answers.getId()}</span>
+              <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"> <a href="mailto:${answers.getEmail()}">Email: ${answers.getEmail()}</a></span>
+              <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">School: ${answers.getInternSchool()}</span>
             </div>
           </div>
             `
